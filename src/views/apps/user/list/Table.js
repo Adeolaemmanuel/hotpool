@@ -358,7 +358,7 @@ console.log(store);
             sortIcon={<ChevronDown />}
             className="react-dataTable"
             paginationComponent={CustomPagination}
-            data={dataToRender()}
+            data={[]}
             subHeaderComponent={
               <CustomHeader
                 store={store}
