@@ -126,7 +126,7 @@ const CustomHeader = ({
           xl="6"
           className="d-flex align-items-sm-center justify-content-xl-end justify-content-start flex-xl-nowrap flex-wrap flex-sm-row flex-column pe-xl-1 p-0 mt-xl-0 mt-1"
         >
-          <div className="d-flex align-items-center mb-sm-0 mb-1 me-1">
+          {/* <div className="d-flex align-items-center mb-sm-0 mb-1 me-1">
             <label className="mb-0" htmlFor="search-invoice">
               Search:
             </label>
@@ -137,7 +137,7 @@ const CustomHeader = ({
               value={searchTerm}
               onChange={(e) => handleFilter(e.target.value)}
             />
-          </div>
+          </div> */}
 
           <div className="d-flex align-items-center table-header-actions">
             <UncontrolledDropdown className="me-1">
@@ -171,14 +171,6 @@ const CustomHeader = ({
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-
-            <Button
-              className="add-new-user"
-              color="primary"
-              onClick={toggleSidebar}
-            >
-              Add New User
-            </Button>
           </div>
         </Col>
       </Row>
@@ -190,7 +182,6 @@ const UsersList = () => {
   // ** Store Vars
   const dispatch = useDispatch();
   const store = useSelector((state) => state.transaction);
-  console.log(store);
 
   // ** States
   const [sort, setSort] = useState("desc");
@@ -225,7 +216,7 @@ const UsersList = () => {
     //     currentPlan: currentPlan.value
     //   })
     // )
-  }, [dispatch, store.data.length, sort, sortColumn, currentPage]);
+  }, [dispatch, sort, sortColumn, currentPage]);
 
   // ** Function in get data on page change
   const handlePagination = (page) => {
@@ -304,27 +295,6 @@ const UsersList = () => {
     );
   };
 
-  // ** Table data to render
-  // const dataToRender = () => {
-  //   const filters = {
-  //     role: currentRole.value,
-  //     currentPlan: currentPlan.value,
-  //     status: currentStatus.value,
-  //     q: searchTerm,
-  //   };
-
-  //   const isFiltered = Object.keys(filters).some(function (k) {
-  //     return filters[k].length > 0;
-  //   });
-
-  //   if (store.data.length > 0) {
-  //     return store.data;
-  //   } else if (store.data.length === 0 && isFiltered) {
-  //     return [];
-  //   } else {
-  //     return store.allData.slice(0, rowsPerPage);
-  //   }
-  // };
 
   const handleSort = (column, sortDirection) => {
     // setSort(sortDirection)
@@ -353,6 +323,7 @@ const UsersList = () => {
             sortServer
             pagination
             responsive
+            lo
             paginationServer
             columns={columns}
             onSort={handleSort}

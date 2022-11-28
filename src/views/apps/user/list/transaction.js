@@ -12,8 +12,11 @@ import { User, UserPlus, UserCheck, UserX } from "react-feather";
 
 // ** Styles
 import "@styles/react/apps/app-users.scss";
+import { useSelector } from "react-redux";
 
 const TransactionList = () => {
+  const totalTransaction = useSelector((state) => state.transaction.data);
+
   return (
     <div className="app-user-list">
       <Row>
@@ -22,7 +25,9 @@ const TransactionList = () => {
             color="primary"
             statTitle="Total transactions"
             icon={<User size={20} />}
-            renderStats={<h3 className="fw-bolder mb-75">319,914</h3>}
+            renderStats={
+              <h3 className="fw-bolder mb-75">{totalTransaction?.length}</h3>
+            }
           />
         </Col>
         <Col lg="4" sm="6">
@@ -30,7 +35,7 @@ const TransactionList = () => {
             color="danger"
             statTitle="Success transactions"
             icon={<UserPlus size={20} />}
-            renderStats={<h3 className="fw-bolder mb-75">7</h3>}
+            renderStats={<h3 className="fw-bolder mb-75"></h3>}
           />
         </Col>
         <Col lg="4" sm="6">
@@ -38,7 +43,7 @@ const TransactionList = () => {
             color="success"
             statTitle="Failed transactions"
             icon={<UserCheck size={20} />}
-            renderStats={<h3 className="fw-bolder mb-75">319,860</h3>}
+            renderStats={<h3 className="fw-bolder mb-75"></h3>}
           />
         </Col>
       </Row>

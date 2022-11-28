@@ -190,7 +190,7 @@ const UsersList = () => {
   // ** Store Vars
   const dispatch = useDispatch();
   const store = useSelector((state) => state.users);
-  transactionService.getAllTransaction();
+console.log(store);
   // ** States
   const [sort, setSort] = useState("desc");
   const [searchTerm, setSearchTerm] = useState("");
@@ -321,7 +321,7 @@ const UsersList = () => {
     } else if (store.data.length === 0 && isFiltered) {
       return [];
     } else {
-      return store.allData.slice(0, rowsPerPage);
+      return store?.allData?.slice(0, rowsPerPage);
     }
   };
 

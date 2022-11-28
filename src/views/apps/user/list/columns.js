@@ -140,12 +140,11 @@ export const columns = [
     sortable: true,
     sortField: "status",
     selector: (row) => row.status,
-    cell: (row) => {
-      console.log(row.Status);
-     return <Badge className="text-capitalize" color={statusObj[row.Status]} pill>
+    cell: (row) => (
+      <Badge className="text-capitalize" color={statusObj[row.Status]} pill>
         {row.Status}
-      </Badge>;
-    },
+      </Badge>
+    ),
   },
   {
     name: "Actions",

@@ -131,4 +131,9 @@ export default class JwtService {
         : `${process.env.REACT_APP_API}`
     }`;
   }
+
+  getUserData() {
+    const data = localStorage.getItem("userData");
+    return JSON.parse(data);
+  }
 }

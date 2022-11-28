@@ -1,63 +1,73 @@
 // ** React Imports
-import { Fragment, useState, useRef } from 'react'
+import { Fragment, useState, useRef } from "react";
 
 // ** Third Party Components
-import classnames from 'classnames'
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import classnames from "classnames";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
-import { useDispatch } from 'react-redux'
-import { handleLogout } from '@store/authentication'
-
+import { useDispatch } from "react-redux";
+import { handleLogout } from "@store/authentication";
 
 // ** Vertical Menu Components
 // import settingMenuNav from '../../../../../navigation/settings'
-import VerticalMenuHeader from './VerticalMenuHeader'
-import VerticalNavMenuItems from './VerticalNavMenuItems'
-import { LogOut } from 'react-feather'
+import VerticalMenuHeader from "./VerticalMenuHeader";
+import VerticalNavMenuItems from "./VerticalNavMenuItems";
+import { LogOut } from "react-feather";
 
-const Sidebar = props => {
+const Sidebar = (props) => {
   // ** Props
-  const { menuCollapsed, routerProps, menu, currentActiveItem, skin, menuData, bottomData } = props
+  const {
+    menuCollapsed,
+    routerProps,
+    menu,
+    currentActiveItem,
+    skin,
+    menuData,
+    bottomData,
+  } = props;
   // console.log(props);
   // ** States
-  const [groupOpen, setGroupOpen] = useState([])
-  const [groupActive, setGroupActive] = useState([])
-  const [currentActiveGroup, setCurrentActiveGroup] = useState([])
-  const [activeItem, setActiveItem] = useState(null)
+  const [groupOpen, setGroupOpen] = useState([]);
+  const [groupActive, setGroupActive] = useState([]);
+  const [currentActiveGroup, setCurrentActiveGroup] = useState([]);
+  const [activeItem, setActiveItem] = useState(null);
 
   // ** Menu Hover State
-  const [menuHover, setMenuHover] = useState(false)
+  const [menuHover, setMenuHover] = useState(false);
 
   // ** Ref
-  const shadowRef = useRef(null)
-  const dispatch = useDispatch()
+  const shadowRef = useRef(null);
+  const dispatch = useDispatch();
 
   // ** Function to handle Mouse Enter
   const onMouseEnter = () => {
-    setMenuHover(true)
-  }
+    setMenuHover(true);
+  };
 
   // ** Scroll Menu
-  const scrollMenu = container => {
+  const scrollMenu = (container) => {
     if (shadowRef && container.scrollTop > 0) {
-      if (!shadowRef.current.classList.contains('d-block')) {
-        shadowRef.current.classList.add('d-block')
+      if (!shadowRef.current.classList.contains("d-block")) {
+        shadowRef.current.classList.add("d-block");
       }
     } else {
-      if (shadowRef.current.classList.contains('d-block')) {
-        shadowRef.current.classList.remove('d-block')
+      if (shadowRef.current.classList.contains("d-block")) {
+        shadowRef.current.classList.remove("d-block");
       }
     }
-  }
+  };
 
   return (
     <Fragment>
       <div
-        className={classnames('main-menu menu-fixed menu-accordion menu-shadow', {
-          expanded: menuHover || menuCollapsed === false,
-          'menu-light': skin !== 'semi-dark' && skin !== 'dark',
-          'menu-dark': skin === 'semi-dark' || skin === 'dark'
-        })}
+        className={classnames(
+          "main-menu menu-fixed menu-accordion menu-shadow",
+          {
+            expanded: menuHover || menuCollapsed === false,
+            "menu-light": skin !== "semi-dark" && skin !== "dark",
+            "menu-dark": skin === "semi-dark" || skin === "dark",
+          }
+        )}
         onMouseEnter={onMouseEnter}
         onMouseLeave={() => setMenuHover(false)}
       >
@@ -66,16 +76,20 @@ const Sidebar = props => {
         ) : (
           <Fragment>
             {/* Vertical Menu Header */}
-            <VerticalMenuHeader setGroupOpen={setGroupOpen} menuHover={menuHover} {...props} />
+            <VerticalMenuHeader
+              setGroupOpen={setGroupOpen}
+              menuHover={menuHover}
+              {...props}
+            />
             {/* Vertical Menu Header Shadow */}
-            <div className='shadow-bottom' ref={shadowRef}></div>
+            <div className="shadow-bottom" ref={shadowRef}></div>
             {/* Perfect Scrollbar */}
             <PerfectScrollbar
-              className='main-menu-content'
+              className="main-menu-content"
               options={{ wheelPropagation: false }}
-              onScrollY={container => scrollMenu(container)}
+              onScrollY={(container) => scrollMenu(container)}
             >
-              <ul className='navigation navigation-main d-flex flex-column h-100 justify-content-between'>
+              <ul className="navigation navigation-main d-flex flex-column h-100 justify-content-between">
                 <div>
                   <VerticalNavMenuItems
                     items={menuData}
@@ -94,9 +108,8 @@ const Sidebar = props => {
                     currentActiveItem={currentActiveItem}
                   />
                 </div>
-                <div className='mb-3'>
+                <div className="mb-3">
                   <VerticalNavMenuItems
-
                     items={bottomData}
                     menuData={bottomData}
                     menuHover={menuHover}
@@ -113,19 +126,25 @@ const Sidebar = props => {
                     currentActiveItem={currentActiveItem}
                   />
                   <li class="nav-item">
-                    <a class="d-flex align-items-center" href='/login' onClick={() => dispatch(handleLogout())}>
+                    <a
+                      class="d-flex align-items-center"
+                      href="/login"
+                      onClick={() => dispatch(handleLogout())}
+                    >
                       <span class="menu-item text-truncate">
                         <LogOut />
-                        Logout</span></a></li>
+                        Logout
+                      </span>
+                    </a>
+                  </li>
                 </div>
               </ul>
-
             </PerfectScrollbar>
           </Fragment>
         )}
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

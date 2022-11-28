@@ -119,7 +119,7 @@ const Router = () => {
 
       // ** Get Routes and Paths of the Layout
       const { LayoutRoutes, LayoutPaths } = LayoutRoutesAndPaths(layout);
-
+      console.log(LayoutRoutes, LayoutPaths);
       // ** We have freedom to display different layout for different route
       // ** We have made LayoutTag dynamic based on layout, we can also replace it with the only layout component,
       // ** that we want to implement like VerticalLayout or HorizontalLayout
