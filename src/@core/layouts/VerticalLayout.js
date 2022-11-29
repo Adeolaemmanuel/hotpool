@@ -54,7 +54,7 @@ const VerticalLayout = (props) => {
 
   const newMenuData = () => {
     if (jwt.getUserData().role === "client") {
-      return [menuData[0], menuData[4], menuData[5]];
+      return [menuData[0], menuData[4]];
     }
 
     return menuData;

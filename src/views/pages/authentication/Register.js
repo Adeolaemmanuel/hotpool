@@ -77,7 +77,6 @@ const Register = () => {
               }
             }
           } else {
-            console.log(res.data);
             if (Boolean(res.data.ResponseInfo)) {
               setCount(2);
               setNotification({ message: res.data.ResponseInfo.Message });

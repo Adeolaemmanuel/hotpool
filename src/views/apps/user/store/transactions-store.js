@@ -16,7 +16,9 @@ export const transactionsSlice = createSlice({
   initialState: {
     data: [],
     total: 9,
-    page: 0
+    page: 0,
+    successful: 0,
+    not_successful:0,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -24,7 +26,9 @@ export const transactionsSlice = createSlice({
       .addCase(getAllTransaction.fulfilled, (state, action) => {
         state.data = action.payload.data;
         state.total = action.payload.total,
-        state.page = action.payload.page
+        state.page = action.payload.page,
+        state.successful = action.payload.successful
+        state.not_successful = action.payload.not_successful
       })
   },
 });

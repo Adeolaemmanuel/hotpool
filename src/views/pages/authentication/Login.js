@@ -92,7 +92,7 @@ const Login = () => {
       jwt
         .login({ email: data.loginEmail, password: data.password })
         .then((res) => {
-          if (res.ResponseData) {
+          if (res.data.ResponseData) {
             const data = {
               accessToken: jwt.getToken(),
               email: res.data.ResponseData.email,

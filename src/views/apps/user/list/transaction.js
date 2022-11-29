@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 
 const TransactionList = () => {
   const totalTransaction = useSelector((state) => state.transaction.data);
-
+  const transactionData = useSelector((state) => state.transaction);
   return (
     <div className="app-user-list">
       <Row>
@@ -35,7 +35,11 @@ const TransactionList = () => {
             color="danger"
             statTitle="Success transactions"
             icon={<UserPlus size={20} />}
-            renderStats={<h3 className="fw-bolder mb-75"></h3>}
+            renderStats={
+              <h3 className="fw-bolder mb-75">
+                {transactionData.successful}
+              </h3>
+            }
           />
         </Col>
         <Col lg="4" sm="6">
@@ -43,7 +47,9 @@ const TransactionList = () => {
             color="success"
             statTitle="Failed transactions"
             icon={<UserCheck size={20} />}
-            renderStats={<h3 className="fw-bolder mb-75"></h3>}
+            renderStats={
+              <h3 className="fw-bolder mb-75">{transactionData.not_successful}</h3>
+            }
           />
         </Col>
       </Row>
