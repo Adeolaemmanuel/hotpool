@@ -95,7 +95,7 @@ const NavbarSearch = () => {
             filterKey='title'
             filterHeaderKey='groupTitle'
             grouped={true}
-            placeholder='Search Swiftcards...'
+            placeholder='Search Hoptool...'
             autoFocus={true}
             onSuggestionItemClick={handleSuggestionItemClick}
             externalClick={handleExternalClick}

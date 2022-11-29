@@ -62,9 +62,7 @@ const ToastContent = ({ name, role }) => (
       </div>
     </div>
     <div className="toastify-body">
-      <span>
-        You have successfully logged in as an {role} user to Swiftcards!
-      </span>
+      <span>You have successfully logged in as an {role} user to Hoptool!</span>
     </div>
   </Fragment>
 );
@@ -94,29 +92,48 @@ const Login = () => {
       jwt
         .login({ email: data.loginEmail, password: data.password })
         .then((res) => {
-          const data = {
-            accessToken: jwt.getToken(),
-            email: res.data.ResponseData.email,
-            SERCIVEID: res.data.ResponseData.SERVICEID,
-            role: res.data.ResponseData.role,
-          };
-          dispatch(handleLogin(data));
-          // ability.update(res.data.userData.ability);
-          history.push(getHomeRouteForLoggedInUser(data.role || "admin"));
-          toast.success(
-            <ToastContent
-              name={data.fullName || res.data.ResponseData.email || "John Doe"}
-              role={data.role || "admin"}
-            />,
-            {
-              icon: false,
-              transition: Slide,
-              hideProgressBar: true,
-              autoClose: 2000,
-            }
-          );
+          if (res.ResponseData) {
+            const data = {
+              accessToken: jwt.getToken(),
+              email: res.data.ResponseData.email,
+              SERCIVEID: res.data.ResponseData.SERVICEID,
+              role: res.data.ResponseData.role,
+            };
+            dispatch(handleLogin(data));
+            // ability.update(res.data.userData.ability);
+            history.push(getHomeRouteForLoggedInUser(data.role || "admin"));
+            toast.success(
+              <ToastContent
+                name={
+                  data.fullName || res.data.ResponseData.email || "John Doe"
+                }
+                role={data.role || "admin"}
+              />,
+              {
+                icon: false,
+                transition: Slide,
+                hideProgressBar: true,
+                autoClose: 2000,
+              }
+            );
+          } else {
+            console.log(res);
+            toast.error(
+              <div className="toastify-body text-danger">
+                <span>{res.data.ResponseInfo?.Message}</span>
+              </div>,
+              {
+                icon: false,
+                transition: Slide,
+                hideProgressBar: true,
+                autoClose: 2000,
+              }
+            );
+          }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       for (const key in data) {
         if (data[key].length === 0) {
@@ -137,7 +154,7 @@ const Login = () => {
           onClick={(e) => e.preventDefault()}
         >
           <img src={Logo} width="30" />
-          <h2 className="brand-text text-primary ms-1">Swiftcards</h2>
+          <h2 className="brand-text text-primary ms-1">Hoptool</h2>
         </Link>
         <Col className="d-none d-lg-flex align-items-center p-5" lg="7" sm="12">
           <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
@@ -151,7 +168,7 @@ const Login = () => {
         >
           <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12">
             <CardTitle tag="h2" className="fw-bold mb-1">
-              Welcome to Swiftcards! 👋
+              Welcome to Hoptool! 👋
             </CardTitle>
             <CardText className="mb-2">
               Enter your credentials to access your account

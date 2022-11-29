@@ -111,7 +111,7 @@ const Register = () => {
           onClick={(e) => e.preventDefault()}
         >
           <img src={Logo} width="30" />
-          <h2 className="brand-text text-primary ms-1">Swiftcards</h2>
+          <h2 className="brand-text text-primary ms-1">Hoptool</h2>
         </Link>
         <Col className="d-none d-lg-flex align-items-center p-5" lg="7" sm="12">
           <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">

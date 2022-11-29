@@ -64,7 +64,7 @@ const ForgotPasswordBasic = () => {
                   </g>
                 </g>
               </svg>
-              <h2 className='brand-text text-primary ms-1'>Swiftcards</h2>
+              <h2 className='brand-text text-primary ms-1'>Hoptool</h2>
             </Link>
             <CardTitle tag='h4' className='mb-1'>
               Forgot Password? 🔒
