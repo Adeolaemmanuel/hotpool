@@ -114,7 +114,7 @@ export default class JwtService {
 
   register(args) {
     return axios.post(this.jwtConfig.registerEndpoint, args, {
-      baseURL: this.fetchDueToCors(),
+      baseURL: process.env.REACT_APP_API,
     });
   }
 
