@@ -87,7 +87,6 @@ const Register = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
           setLoading(false);
         });
     } else {

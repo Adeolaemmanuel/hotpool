@@ -43,6 +43,7 @@ const UserDropdown = () => {
       <DropdownToggle href='/' tag='a' className='nav-link dropdown-user-link' onClick={e => e.preventDefault()}>
         <div className='user-nav d-sm-flex d-none'>
           <span className='user-name fw-bold'>Welcome, {(userData && userData.email) || 'Admin'}</span>
+          <span className='user-status'> SERVICE ID {(userData && userData.SERCIVEID) || 'Admin'}</span>
         </div>
         <Avatar img={userAvatar} imgHeight='40' imgWidth='40' status='online' />
       </DropdownToggle> 
