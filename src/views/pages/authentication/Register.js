@@ -47,7 +47,7 @@ const Register = () => {
   const [notification, setNotification] = useState({
     message: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const { skin } = useSkin();
   const {
     control,
@@ -62,12 +62,14 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const tempData = { ...data };
+    setLoading(true);
     if (Object.values(tempData).every((field) => Boolean(field))) {
       const { email } = data;
       jwt
         .register({ email })
         .then((res) => {
           if (res.data.error) {
+            setLoading(false);
             for (const property in res.data.error) {
               if (res.data.error[property] !== null) {
                 setError(property, {
@@ -78,13 +80,18 @@ const Register = () => {
             }
           } else {
             if (Boolean(res.data.ResponseInfo)) {
+              setLoading(false);
               setCount(2);
               setNotification({ message: res.data.ResponseInfo.Message });
             }
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
     } else {
+      setLoading(false);
       for (const key in data) {
         if (data[key].length === 0) {
           setError(key, {
@@ -134,6 +141,7 @@ const Register = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 control={control}
                 errors={errors}
+                loading={loading}
               />
             )}
             {count === 2 && <CreateAppExample message={notification.message} />}

@@ -1,5 +1,5 @@
 // ** React Imports
-import { useContext, Fragment } from "react";
+import { useContext, Fragment, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // ** Custom Hooks
@@ -52,6 +52,7 @@ import "@styles/react/pages/page-authentication.scss";
 
 // ** Images
 import Logo from "@src/assets/images/logo/logo.png";
+import Circular from "../../components/loader/circlar";
 
 const ToastContent = ({ name, role }) => (
   <Fragment>
@@ -78,6 +79,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const ability = useContext(AbilityContext);
+  const [loading, setLoading] = useState(false);
   const {
     control,
     setError,
@@ -88,6 +90,7 @@ const Login = () => {
     source = require(`@src/assets/images/pages/${illustration}`).default;
 
   const onSubmit = (data) => {
+    setLoading(true);
     if (Object.values(data).every((field) => field.length > 0)) {
       jwt
         .login({ email: data.loginEmail, password: data.password })
@@ -99,6 +102,7 @@ const Login = () => {
               SERCIVEID: res.data.ResponseData.SERVICEID,
               role: res.data.ResponseData.role,
             };
+            setLoading(false);
             dispatch(handleLogin(data));
             // ability.update(res.data.userData.ability);
             history.push(getHomeRouteForLoggedInUser(data.role || "admin"));
@@ -117,7 +121,7 @@ const Login = () => {
               }
             );
           } else {
-            console.log(res);
+            setLoading(false);
             toast.error(
               <div className="toastify-body text-danger">
                 <span>{res.data.ResponseInfo?.Message}</span>
@@ -135,6 +139,7 @@ const Login = () => {
           console.log(err);
         });
     } else {
+      setLoading(false);
       for (const key in data) {
         if (data[key].length === 0) {
           setError(key, {
@@ -249,6 +254,7 @@ const Login = () => {
               </div>
               <Button type="submit" color="primary" block>
                 Sign in
+                {loading && <Circular />}
               </Button>
             </Form>
             <p className="text-center mt-2">
@@ -257,23 +263,6 @@ const Login = () => {
                 <span>Create an account</span>
               </Link>
             </p>
-            {/* <div className='divider my-2'>
-              <div className='divider-text'>or</div>
-            </div> */}
-            {/* <div className='auth-footer-btn d-flex justify-content-center'>
-              <Button color='facebook'>
-                <Facebook size={14} />
-              </Button>
-              <Button color='twitter'>
-                <Twitter size={14} />
-              </Button>
-              <Button color='google'>
-                <Mail size={14} />
-              </Button>
-              <Button className='me-0' color='github'>
-                <GitHub size={14} />
-              </Button>
-            </div> */}
           </Col>
         </Col>
       </Row>

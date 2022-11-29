@@ -1,5 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   CardTitle,
@@ -9,16 +9,15 @@ import {
   Input,
   Button,
   Spinner,
-  FormFeedback
-} from "reactstrap"
-import { Controller } from "react-hook-form"
+  FormFeedback,
+} from "reactstrap";
+import { Controller } from "react-hook-form";
 // ** Styles
-import "@styles/react/pages/page-authentication.scss"
-import { Check } from "react-feather"
+import "@styles/react/pages/page-authentication.scss";
+import { Check } from "react-feather";
+import Circular from "../../components/loader/circlar";
 
-
-const SignUpStepOne = ({onSubmit, control, errors}) => {
-
+const SignUpStepOne = ({ onSubmit, control, errors, loading }) => {
   // const history = useHistory()
   // const dispatch = useDispatch()
 
@@ -27,48 +26,45 @@ const SignUpStepOne = ({onSubmit, control, errors}) => {
   //     source = require(`@src/assets/images/pages/${illustration}`).default;
 
   return (
+    <Form className="auth-register-form mt-2" onSubmit={onSubmit}>
+      <div className="mb-1 position-relative">
+        <Label className="form-label" for="register-email">
+          Work Email
+        </Label>
+        <Controller
+          id="email"
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <Input
+              type="email"
+              placeholder="john@example.com"
+              invalid={errors.email && true}
+              {...field}
+            />
+          )}
+        />
+        {errors.email ? (
+          <FormFeedback>{errors.email.message}</FormFeedback>
+        ) : null}
+        <Check
+          style={{ top: "30px", right: "10px" }}
+          className="position-absolute"
+        />
+      </div>
+      <Button type="submit" block color="primary">
+        <span className="ms-50">Continue</span>
+        {loading && <Circular />}
+      </Button>
 
-      <Form
-        className="auth-register-form mt-2"
-        onSubmit={onSubmit}
-      >
-        <div className="mb-1 position-relative">
-          <Label className="form-label" for="register-email">
-            Work Email
-          </Label>
-          <Controller
-            id="email"
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <Input
-                type="email"
-                placeholder="john@example.com"
-                invalid={errors.email && true}
-                {...field}
-              />
-            )}
-          />
-          {errors.email ? (
-            <FormFeedback>{errors.email.message}</FormFeedback>
-          ) : null}
-          <Check
-            style={{ top: "30px", right: "10px" }}
-            className="position-absolute"
-          />
-        </div>
-        <Button type="submit" block color="primary">
-          <span className="ms-50">Continue</span>
-        </Button>
+      <p className="text-center mt-2">
+        <span className="me-25">Already have an account?</span>
+        <Link to="/login">
+          <span>Sign in instead</span>
+        </Link>
+      </p>
+    </Form>
+  );
+};
 
-        <p className="text-center mt-2">
-          <span className="me-25">Already have an account?</span>
-          <Link to="/login">
-            <span>Sign in instead</span>
-          </Link>
-        </p>
-      </Form>
-  )
-}
-
-export default SignUpStepOne
+export default SignUpStepOne;
