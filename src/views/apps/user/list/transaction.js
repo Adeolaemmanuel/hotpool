@@ -26,7 +26,9 @@ const TransactionList = () => {
             statTitle="Total transactions"
             icon={<User size={20} />}
             renderStats={
-              <h3 className="fw-bolder mb-75">{totalTransaction?.length}</h3>
+              <h3 className="fw-bolder mb-75">
+                {"" || totalTransaction?.length}
+              </h3>
             }
           />
         </Col>
@@ -36,9 +38,7 @@ const TransactionList = () => {
             statTitle="Success transactions"
             icon={<UserPlus size={20} />}
             renderStats={
-              <h3 className="fw-bolder mb-75">
-                {transactionData.successful}
-              </h3>
+              <h3 className="fw-bolder mb-75">{transactionData.successful}</h3>
             }
           />
         </Col>
@@ -48,7 +48,9 @@ const TransactionList = () => {
             statTitle="Failed transactions"
             icon={<UserCheck size={20} />}
             renderStats={
-              <h3 className="fw-bolder mb-75">{transactionData.not_successful}</h3>
+              <h3 className="fw-bolder mb-75">
+                {transactionData.not_successful}
+              </h3>
             }
           />
         </Col>
